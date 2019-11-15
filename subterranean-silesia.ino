@@ -1,58 +1,104 @@
-#define Counter_LED_Katowice1 22
-#define Counter_LED_Katowice2 23
-#define Counter_LED_Katowice3 27
-#define Counter_LED_Katowice4 26
+#define coalMine1 3
+#define coalMine2 6
+#define coalMine4 9
+#define coalMine3 10
+
+#define CounterLEDKatowice1 22
+#define CounterLEDKatowice2 27
+#define CounterLEDKatowice3 25
+#define CounterLEDKatowice4 26
+#define CounterLEDSosnowiec 24
+#define CounterLEDPiekary 28
+#define CounterLEDBytom1 29
+#define CounterLEDBytom2 31
 
 #define switchKatowice 23
-#define switchGOP1 27
-
-
-
-void setup() {
-
-  Serial.begin(115200);
-
-  pinMode(switchKatowice, INPUT_PULLUP); //Katowice urban area
-    pinMode(CounterLED1, OUTPUT);
-      pinMode(coalMine1, OUTPUT);
-      
-    pinMode(CounterLED2, OUTPUT);
-      pinMode(coalMine2, OUTPUT);
-      
-    pinMode(CounterLED3, OUTPUT);
-      pinMode(coalMine3, OUTPUT);
-      
-    pinMode(CounterLED4, OUTPUT);
-      pinMode(coalMine4, OUTPUT); //liquidation coal mine
-      
-  pinMode(switchGOP1, INPUT_PULLUP); //GOP first part (Upper Silesia Industrial Region I)
-    pinMode(CounterLED5, OUTPUT);
-      pinMode(coalMine5, OUTPUT);
-      
-    pinMode(CounterLED6, OUTPUT);
-      pinMode(coalMine5, OUTPUT);
-      
-    pinMode(CounterLED7, OUTPUT);
-      pinMode(coalMine7, OUTPUT);
-      
-  pinMode(switchGOP2, INPUT_PULLUP); // GOP second part (Upper Silesia Industrial Region II)
-  pinMode(switchJCOP, INPUT_PULLUP); //Jaworzno-Chrzanow Industrial Region
-  pinMode(switchROW, INPUT_PULLUP); // Rybnik Coal Area
-  pinMode(switchBOP, INPUT_PULLUP); // Bielsko Industrial Region
+#define switchGOP1 30
+ 
+int stateCoalMine1 = LOW;
+int stateCoalMine2 = LOW;
+int stateCoalMine3 = LOW;
+int stateCoalMine4 = LOW;
+ 
+unsigned long workCoalMine1 = 500;
+unsigned long workCoalMine2 = 100;
+unsigned long workCoalMine3 = 400;
+unsigned long workCoalMine4 = 700;
+ 
+unsigned long currentMillis = 0;
+unsigned long worktimeKatowice1 = 0;
+unsigned long worktimeKatowice2 = 0;
+unsigned long worktimeKatowice3 = 0;
+unsigned long worktimeKatowice4 = 0;
+ 
+void setup(){
+  Serial.begin(9600);
+  pinMode(coalMine1, OUTPUT);
+  pinMode(coalMine2, OUTPUT);
+  pinMode(coalMine3, OUTPUT);
+  pinMode(coalMine4, OUTPUT);
+  pinMode(CounterLEDKatowice1, OUTPUT);
+  pinMode(CounterLEDKatowice2, OUTPUT);
+  pinMode(CounterLEDKatowice3, OUTPUT);
+  pinMode(CounterLEDKatowice4, OUTPUT);
+  pinMode(CounterLEDSosnowiec, OUTPUT);
+  pinMode(CounterLEDPiekary, OUTPUT);
+  pinMode(CounterLEDBytom1, OUTPUT);
+  pinMode(CounterLEDBytom2, OUTPUT);
+  pinMode(switchGOP1, INPUT_PULLUP);
+  pinMode(switchKatowice, INPUT_PULLUP);
 }
-
-void loop() {
+ 
+void loop(){
   
-  if(digitalRead(switchKatowice) == LOW) 
-  { 
-    digitalWrite(Counter_LED_Katowice1, HIGH);
-    digitalWrite(Counter_LED_Katowice2, HIGH);
-    digitalWrite(Counter_LED_Katowice3, HIGH);
-    digitalWrite(Counter_LED_Katowice4, HIGH);
-  } else if (digitalRead(switchKatowice) == HIGH) {
-    digitalWrite(Counter_LED_Katowice1, LOW);
-    digitalWrite(Counter_LED_Katowice2, LOW);
-    digitalWrite(Counter_LED_Katowice3, LOW);
-    digitalWrite(Counter_LED_Katowice4, LOW);
+  currentMillis = millis();
+ 
+  if (digitalRead(switchKatowice) == LOW) {
+    workCoalMine1 = 500;
+    workCoalMine2 = 100;
+    workCoalMine3 = 400;
+    workCoalMine4 = 700;
+    digitalWrite(CounterLEDKatowice1, HIGH);
+    digitalWrite(CounterLEDKatowice2, HIGH);
+    digitalWrite(CounterLEDKatowice3, HIGH);
+    digitalWrite(CounterLEDKatowice4, HIGH);
+  } else {
+    digitalWrite(coalMine1, LOW);
+    digitalWrite(coalMine2, LOW);
+    digitalWrite(coalMine3, LOW);
+    digitalWrite(coalMine4, LOW);
+    digitalWrite(CounterLEDKatowice1, LOW);
+    digitalWrite(CounterLEDKatowice2, LOW);
+    digitalWrite(CounterLEDKatowice3, LOW);
+    digitalWrite(CounterLEDKatowice4, LOW);
   }
+
+  if (digitalRead(switchGOP1) == LOW) {
+    digitalWrite(CounterLEDSosnowiec, HIGH);
+    digitalWrite(CounterLEDPiekary, HIGH);
+    digitalWrite(CounterLEDBytom1, HIGH);
+    digitalWrite(CounterLEDBytom2, HIGH);
+  } else {
+    digitalWrite(CounterLEDSosnowiec, LOW);
+    digitalWrite(CounterLEDPiekary, LOW);
+    digitalWrite(CounterLEDBytom1, LOW);
+    digitalWrite(CounterLEDBytom2, LOW);
+  }
+  
+    if (currentMillis - worktimeKatowice1 >= workCoalMine1) {
+      worktimeKatowice1 = currentMillis;
+      stateCoalMine1 = !stateCoalMine1;
+      digitalWrite(coalMine1, stateCoalMine1);
+    }
+   
+    if (currentMillis - worktimeKatowice2 >= workCoalMine2) {
+      worktimeKatowice2 = currentMillis;
+      stateCoalMine2 = !stateCoalMine2;
+      digitalWrite(coalMine2, stateCoalMine2);
+    }
+    if (currentMillis - worktimeKatowice3 >= workCoalMine3) {
+      worktimeKatowice3 = currentMillis;
+      stateCoalMine3 = !stateCoalMine3;
+      digitalWrite(coalMine3, stateCoalMine3);
+    }
 }
