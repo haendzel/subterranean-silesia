@@ -1,18 +1,17 @@
-#define CounterLED1 22
-#define CounterLED2 24
-#define CounterLED3 25
-#define CounterLED4 26
+#define Counter_LED_Katowice1 22
+#define Counter_LED_Katowice2 23
+#define Counter_LED_Katowice3 27
+#define Counter_LED_Katowice4 26
 
-#define Switch1 23 //katowice
-#define Switch 27 //
+#define switchKatowice 23
+#define switchGOP1 27
+
 
 
 void setup() {
- {
+
   Serial.begin(115200);
-  blinkStartMillis = millis();  
-  fadeStartMillis = millis();
-}
+
   pinMode(switchKatowice, INPUT_PULLUP); //Katowice urban area
     pinMode(CounterLED1, OUTPUT);
       pinMode(coalMine1, OUTPUT);
@@ -24,7 +23,7 @@ void setup() {
       pinMode(coalMine3, OUTPUT);
       
     pinMode(CounterLED4, OUTPUT);
-      pinMode(coalMine4, OUTPUT); //liquidation
+      pinMode(coalMine4, OUTPUT); //liquidation coal mine
       
   pinMode(switchGOP1, INPUT_PULLUP); //GOP first part (Upper Silesia Industrial Region I)
     pinMode(CounterLED5, OUTPUT);
@@ -44,20 +43,16 @@ void setup() {
 
 void loop() {
   
-  currentMillis = millis();  //get the current time
-  blink();
-  fade();
-  
-  if(digitalRead(Switch1) == LOW) //jesli wlaczymy Katowice
+  if(digitalRead(switchKatowice) == LOW) 
   { 
-    digitalWrite(CounterLED1, HIGH);
-    digitalWrite(CounterLED2, HIGH);
-    digitalWrite(CounterLED3, HIGH);
-    digitalWrite(CounterLED4, HIGH);
-  } else if (digitalRead(Switch1) == HIGH) {
-    digitalWrite(CounterLED1, LOW);
-    digitalWrite(CounterLED2, LOW);
-    digitalWrite(CounterLED3, LOW);
-    digitalWrite(CounterLED4, LOW);
+    digitalWrite(Counter_LED_Katowice1, HIGH);
+    digitalWrite(Counter_LED_Katowice2, HIGH);
+    digitalWrite(Counter_LED_Katowice3, HIGH);
+    digitalWrite(Counter_LED_Katowice4, HIGH);
+  } else if (digitalRead(switchKatowice) == HIGH) {
+    digitalWrite(Counter_LED_Katowice1, LOW);
+    digitalWrite(Counter_LED_Katowice2, LOW);
+    digitalWrite(Counter_LED_Katowice3, LOW);
+    digitalWrite(Counter_LED_Katowice4, LOW);
   }
 }
