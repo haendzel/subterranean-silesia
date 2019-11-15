@@ -89,10 +89,11 @@ void setup(){
 void loop(){
   
   currentMillis = millis();
+  worktime();
+  blinks();
  
   if (digitalRead(switchKatowice) == LOW) {
     blinkCounterLEDKatowice1 = 80;
-    blinkCounterLEDBytom1 = 500;
     digitalWrite(CounterLEDKatowice2, HIGH);
     digitalWrite(CounterLEDKatowice3, HIGH);
     digitalWrite(CounterLEDKatowice4, HIGH);
@@ -108,9 +109,9 @@ void loop(){
   }
 
   if (digitalRead(switchGOP1) == LOW) {
+    blinkCounterLEDBytom1 = 500;
     digitalWrite(CounterLEDSosnowiec, HIGH);
     digitalWrite(CounterLEDPiekary, HIGH);
-    digitalWrite(CounterLEDBytom1, HIGH);
     digitalWrite(CounterLEDBytom2, HIGH);
   } else {
     digitalWrite(coalMine2, LOW);
@@ -122,7 +123,10 @@ void loop(){
     digitalWrite(CounterLEDBytom1, LOW);
     digitalWrite(CounterLEDBytom2, LOW);
   }
-  
+}
+
+void worktime()
+{
     if (currentMillis - worktime1 >= workCoalMine1) {
       worktime1 = currentMillis;
       stateCoalMine1 = !stateCoalMine1;
@@ -167,8 +171,11 @@ void loop(){
       stateCoalMine8 = !stateCoalMine8;
       digitalWrite(coalMine8, stateCoalMine8);
     }
+}
 
-    if (currentMillis - worktimeCounterLEDKatowice1 >= blinkCounterLEDKatowice1) {
+void blinks()
+{
+  if (currentMillis - worktimeCounterLEDKatowice1 >= blinkCounterLEDKatowice1) {
       worktimeCounterLEDKatowice1 = currentMillis;
       stateCounterLEDKatowice1 = !stateCounterLEDKatowice1;
       digitalWrite(CounterLEDKatowice1, stateCounterLEDKatowice1);
