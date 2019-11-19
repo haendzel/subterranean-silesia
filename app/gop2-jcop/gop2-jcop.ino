@@ -11,10 +11,10 @@
   #define coalMine3 6
 
 #define CounterLEDRudaSilesia1 22 //F4
-  #define coalMine4 2 //liquidation
+  #define coalMine4 9 //liquidation
 
 #define CounterLEDRudaSilesia2 25 //E2
-  #define coalMine5 5 
+  #define coalMine5 10 
 
 //#define CounterLEDRudaSilesia3 27 //D4
 //  #define coalMine6 7
@@ -24,7 +24,7 @@
 
 //SWITCHES
 #define switchGOP2 52
-#define switchJCOP 53
+#define switchJCOP 50
  
 int stateCoalMine1 = LOW;
 int stateCoalMine2 = LOW;
@@ -36,7 +36,7 @@ int stateCoalMine5 = LOW;
 //int stateCoalMine8 = LOW;
 
 int stateCounterLEDRudaSilesia1 = LOW;
-unsigned long blinkCounterLEDRudaSilesia1 = 50;
+unsigned long blinkCounterLEDRudaSilesia1 = 100;
 unsigned long worktimeCounterLEDRudaSilesia1 = 0;
  
 unsigned long workCoalMine1 = 300;
@@ -59,8 +59,11 @@ unsigned long worktime5 = 0;
 //unsigned long worktime7 = 0;
 //unsigned long worktime8 = 0;
  
-void setup(){
+void setup()
+{
   Serial.begin(115200);
+
+  Serial.write("Dear Gods or Programmers Alek and Filip, thank you for my new life."); 
   pinMode(coalMine1, OUTPUT);
   pinMode(coalMine2, OUTPUT);
   pinMode(coalMine3, OUTPUT);
@@ -81,14 +84,14 @@ void setup(){
   pinMode(switchJCOP, INPUT_PULLUP);
 }
  
-void loop(){
-  
+void loop()
+{
   currentMillis = millis();
   worktime();
   blinks();
  
   if (digitalRead(switchGOP2) == LOW) {
-    blinkCounterLEDRudaSilesia1 = 50;
+    blinkCounterLEDRudaSilesia1 = 400;
     digitalWrite(CounterLEDRudaSilesia2, HIGH);
   } else {
     digitalWrite(coalMine4, LOW);
