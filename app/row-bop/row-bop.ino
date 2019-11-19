@@ -10,8 +10,8 @@
 #define CounterLEDRybnik2 25 //D3
   #define coalMine3 5
 
-#define CounterLEDPruszowice 13 //E3
-  #define coalMine4 6
+#define CounterLEDPruszowice 28 //E3
+  #define coalMine4 9
 
 #define CounterLEDJastrzebie1 27 //E4
   #define coalMine5 7 
@@ -36,8 +36,8 @@
 
 
 //SWITCHES
-#define switchROW 52
-#define switchBOP 50
+#define switchROW 50
+#define switchBOP 48
  
 int stateCoalMine1 = LOW;
 int stateCoalMine2 = LOW;
@@ -56,11 +56,11 @@ unsigned long blinkCounterLEDJastrzebie2= 400;
 unsigned long worktimeCounterLEDJastrzebie2 = 0;
  
 unsigned long workCoalMine1 = 1000;
-unsigned long workCoalMine2 = 200;
-unsigned long workCoalMine3 = 300;
-unsigned long workCoalMine4 = 300;
-unsigned long workCoalMine5 = 300;
-unsigned long workCoalMine6 = 300;
+unsigned long workCoalMine2 = 1000;
+unsigned long workCoalMine3 = 1000;
+unsigned long workCoalMine4 = 1000;
+unsigned long workCoalMine5 = 1000;
+unsigned long workCoalMine6 = 1000;
 //unsigned long workCoalMine7 = 300;
 //unsigned long workCoalMine8 = 300;
 //unsigned long workCoalMine9 = 300;
@@ -86,6 +86,7 @@ void setup()
   Serial.begin(115200);
 
   Serial.write("Dear Gods or Programmers Alek and Filip, thank you for my new life."); 
+
   pinMode(coalMine1, OUTPUT);
   pinMode(coalMine2, OUTPUT);
   pinMode(coalMine3, OUTPUT);
@@ -125,10 +126,11 @@ void loop()
     digitalWrite(CounterLEDRybnik2, HIGH);
     digitalWrite(CounterLEDPruszowice, HIGH);
   } else {
+    digitalWrite(coalMine2, LOW);
+    digitalWrite(coalMine3, LOW);
     digitalWrite(coalMine4, LOW);
-    digitalWrite(coalMine5, LOW);
-    digitalWrite(coalMine6, LOW);
     digitalWrite(CounterLEDJastrzebie1, LOW);
+    digitalWrite(CounterLEDJastrzebie2, LOW);
     digitalWrite(CounterLEDRybnik1, LOW);
     digitalWrite(CounterLEDRybnik2, LOW);
     digitalWrite(CounterLEDPruszowice, LOW);
