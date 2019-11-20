@@ -2,5 +2,5 @@
     "board": "arduino:avr:mega",
     "configuration": "cpu=atmega2560",
     "port": "/dev/cu.wchusbserial1430",
-    "sketch": "app/row-bop/row-bop.ino"
+    "sketch": "app/katowice-gop1/katowice-gop1.ino"
 }
