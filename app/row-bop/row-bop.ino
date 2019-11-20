@@ -26,7 +26,7 @@
   #define coalMine8 11
 
 #define CounterLEDRadlin 24 //E2
-  #define coalMine9 12
+  #define coalMine9 6
 
 #define CounterLEDKnurow 33 //F1
   #define coalMine10 45
@@ -61,11 +61,11 @@ unsigned long workCoalMine3 = 1000;
 unsigned long workCoalMine4 = 1000;
 unsigned long workCoalMine5 = 1000;
 unsigned long workCoalMine6 = 1000;
-unsigned long workCoalMine7 = 300;
-unsigned long workCoalMine8 = 300;
-unsigned long workCoalMine9 = 300;
-unsigned long workCoalMine10 = 300;
-unsigned long workCoalMine11 = 300;
+unsigned long workCoalMine7 = 1000;
+unsigned long workCoalMine8 = 1000;
+unsigned long workCoalMine9 = 1000;
+unsigned long workCoalMine10 = 1000;
+unsigned long workCoalMine11 = 1000;
  
 unsigned long currentMillis = 0;
 
@@ -83,7 +83,7 @@ unsigned long worktime11 = 0;
  
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   Serial.write("Hush! Do you hear it? Something work undeground in Silesia."); 
 
