@@ -38,6 +38,10 @@
 //SWITCHES
 #define switchROW 50
 #define switchBOP 48
+
+//GREEN DIODES 
+#define greenROW 49
+#define greenBOP 51
  
 int stateCoalMine1 = LOW;
 int stateCoalMine2 = LOW;
@@ -54,18 +58,22 @@ int stateCoalMine11 = LOW;
 int stateCounterLEDJastrzebie2 = LOW;
 unsigned long blinkCounterLEDJastrzebie2= 400;
 unsigned long worktimeCounterLEDJastrzebie2 = 0;
+
+int stateCounterLEDRadlin = LOW;
+unsigned long blinkCounterLEDRadlin= 100;
+unsigned long worktimeCounterLEDRadlin = 0;
  
-unsigned long workCoalMine1 = 1000;
-unsigned long workCoalMine2 = 1000;
-unsigned long workCoalMine3 = 1000;
-unsigned long workCoalMine4 = 1000;
+unsigned long workCoalMine1 = 140;
+unsigned long workCoalMine2 = 80;
+unsigned long workCoalMine3 = 60;
+unsigned long workCoalMine4 = 300;
 unsigned long workCoalMine5 = 1000;
 unsigned long workCoalMine6 = 1000;
 unsigned long workCoalMine7 = 1000;
-unsigned long workCoalMine8 = 1000;
+unsigned long workCoalMine8 = 400;
 unsigned long workCoalMine9 = 1000;
 unsigned long workCoalMine10 = 1000;
-unsigned long workCoalMine11 = 1000;
+unsigned long workCoalMine11 = 400;
  
 unsigned long currentMillis = 0;
 
@@ -111,6 +119,8 @@ void setup()
   pinMode(CounterLEDOrmontowice, OUTPUT);
   pinMode(switchBOP, INPUT_PULLUP);
   pinMode(switchROW, INPUT_PULLUP);
+  pinMode(greenROW, OUTPUT);
+  pinMode(greenBOP, OUTPUT);
 }
  
 void loop()
@@ -121,15 +131,16 @@ void loop()
  
   if (digitalRead(switchROW) == LOW) {
     blinkCounterLEDJastrzebie2 = 400;
+    blinkCounterLEDRadlin = 400;
     digitalWrite(CounterLEDJastrzebie1, HIGH);
     digitalWrite(CounterLEDRybnik1, HIGH);
     digitalWrite(CounterLEDRybnik2, HIGH);
     digitalWrite(CounterLEDPruszowice, HIGH);
     digitalWrite(CounterLEDJastrzebie3, HIGH);
     digitalWrite(CounterLEDJastrzebie4, HIGH);
-    digitalWrite(CounterLEDRadlin, HIGH);
     digitalWrite(CounterLEDKnurow, HIGH);
     digitalWrite(CounterLEDOrmontowice, HIGH);
+    digitalWrite(greenROW, HIGH);
   } else {
     digitalWrite(coalMine2, LOW);
     digitalWrite(coalMine3, LOW);
@@ -150,13 +161,16 @@ void loop()
     digitalWrite(CounterLEDRadlin, LOW);
     digitalWrite(CounterLEDKnurow, LOW);
     digitalWrite(CounterLEDOrmontowice, LOW);
+    digitalWrite(greenROW, LOW);
   }
 
   if (digitalRead(switchBOP) == LOW) {
     digitalWrite(CounterLEDCzechowiceDziedzice, HIGH);
+    digitalWrite(greenBOP, HIGH);
   } else {
     digitalWrite(coalMine1, LOW);
     digitalWrite(CounterLEDCzechowiceDziedzice, LOW);
+    digitalWrite(greenBOP, LOW);
   }
 }
 
@@ -226,5 +240,10 @@ void blinks()
       worktimeCounterLEDJastrzebie2 = currentMillis;
       stateCounterLEDJastrzebie2 = !stateCounterLEDJastrzebie2;
       digitalWrite(CounterLEDJastrzebie2, stateCounterLEDJastrzebie2);
+  }
+  if (currentMillis - worktimeCounterLEDRadlin >= blinkCounterLEDRadlin) {
+      worktimeCounterLEDRadlin = currentMillis;
+      stateCounterLEDRadlin = !stateCounterLEDRadlin;
+      digitalWrite(CounterLEDRadlin, stateCounterLEDRadlin);
   }
 }

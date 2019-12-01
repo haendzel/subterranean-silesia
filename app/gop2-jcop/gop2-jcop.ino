@@ -41,6 +41,12 @@
 //SWITCHES
 #define switchGOP2 52
 #define switchJCOP 50
+
+
+//GREEN DIODES
+#define greenGOP2 48
+#define greenJCOP 46
+
  
 int stateCoalMine1 = LOW;
 int stateCoalMine2 = LOW;
@@ -48,9 +54,9 @@ int stateCoalMine3 = LOW;
 int stateCoalMine4 = LOW;
 int stateCoalMine5 = LOW;
 int stateCoalMine6 = LOW;
-int stateCoalMine7 = LOW;
-int stateCoalMine8 = LOW;
-int stateCoalMine9 = LOW;
+int stateCoalMine7 = LOW; //c
+int stateCoalMine8 = LOW; //c
+int stateCoalMine9 = LOW; //c
 int stateCoalMine10 = LOW;
 int stateCoalMine11 = LOW;
 int stateCoalMine12 = LOW;
@@ -58,6 +64,10 @@ int stateCoalMine12 = LOW;
 int stateCounterLEDRudaSilesia1 = LOW;
 unsigned long blinkCounterLEDRudaSilesia1 = 400;
 unsigned long worktimeCounterLEDRudaSilesia1 = 0;
+
+int stateCounterLEDRudaSilesia2 = LOW;
+unsigned long blinkCounterLEDRudaSilesia2 = 400;
+unsigned long worktimeCounterLEDRudaSilesia2 = 0;
 
 int stateCounterLEDZabrze = LOW;
 unsigned long blinkCounterLEDZabrze = 50;
@@ -67,17 +77,17 @@ int stateCounterLEDUnnamed = LOW;
 unsigned long blinkCounterLEDUnnamed = 50;
 unsigned long worktimeCounterLEDUnnamed = 0;
  
-unsigned long workCoalMine1 = 1000;
-unsigned long workCoalMine2 = 200;
+unsigned long workCoalMine1 = 100;
+unsigned long workCoalMine2 = 100;
 unsigned long workCoalMine3 = 300;
 unsigned long workCoalMine4 = 300;
 unsigned long workCoalMine5 = 300;
 unsigned long workCoalMine6 = 300;
-unsigned long workCoalMine7 = 300;
-unsigned long workCoalMine8 = 300;
-unsigned long workCoalMine9 = 300;
-unsigned long workCoalMine10 = 300;
-unsigned long workCoalMine11 = 300;
+unsigned long workCoalMine7 = 1000;
+unsigned long workCoalMine8 = 150;
+unsigned long workCoalMine9 = 700;
+unsigned long workCoalMine10 = 100;
+unsigned long workCoalMine11 = 100;
 unsigned long workCoalMine12 = 300;
  
 unsigned long currentMillis = 0;
@@ -126,6 +136,8 @@ void setup()
   pinMode(CounterLEDUnnamed, OUTPUT);
   pinMode(switchGOP2, INPUT_PULLUP);
   pinMode(switchJCOP, INPUT_PULLUP);
+  pinMode(greenGOP2, OUTPUT);
+  pinMode(greenJCOP, OUTPUT);
 }
  
 void loop()
@@ -136,15 +148,17 @@ void loop()
  
   if (digitalRead(switchGOP2) == LOW) {
     blinkCounterLEDRudaSilesia1 = 400;
+    blinkCounterLEDRudaSilesia2 = 50;
     blinkCounterLEDZabrze = 60;
     blinkCounterLEDUnnamed = 2000;
-    digitalWrite(CounterLEDRudaSilesia2, HIGH);
+    digitalWrite(greenGOP2, HIGH);
     digitalWrite(CounterLEDRudaSilesia3, HIGH);
     digitalWrite(CounterLEDRudaSilesia4, HIGH);
     digitalWrite(CounterLEDMikolow, HIGH);
     digitalWrite(CounterLEDGliwice, HIGH);
     digitalWrite(CounterLEDLaziska, HIGH);
   } else {
+    digitalWrite(greenGOP2, LOW);
     digitalWrite(coalMine4, LOW);
     digitalWrite(coalMine5, LOW);
     digitalWrite(coalMine6, LOW);
@@ -159,16 +173,19 @@ void loop()
     digitalWrite(CounterLEDRudaSilesia3, LOW);
     digitalWrite(CounterLEDRudaSilesia4, LOW);
     digitalWrite(CounterLEDMikolow, LOW);
+    digitalWrite(CounterLEDZabrze, LOW);
     digitalWrite(CounterLEDGliwice, LOW);
     digitalWrite(CounterLEDLaziska, LOW);
     digitalWrite(CounterLEDUnnamed, LOW);
   }
 
   if (digitalRead(switchJCOP) == LOW) {
+    digitalWrite(greenJCOP, HIGH);
     digitalWrite(CounterLEDBrzeszcze, HIGH);
     digitalWrite(CounterLEDJaworzno, HIGH);
     digitalWrite(CounterLEDLibiaz, HIGH);
   } else {
+    digitalWrite(greenJCOP, LOW);
     digitalWrite(coalMine1, LOW);
     digitalWrite(coalMine2, LOW);
     digitalWrite(coalMine3, LOW);
@@ -257,7 +274,11 @@ void blinks()
       stateCounterLEDRudaSilesia1 = !stateCounterLEDRudaSilesia1;
       digitalWrite(CounterLEDRudaSilesia1, stateCounterLEDRudaSilesia1);
   }
-
+  if (currentMillis - worktimeCounterLEDRudaSilesia2 >= blinkCounterLEDRudaSilesia2) {
+      worktimeCounterLEDRudaSilesia2 = currentMillis;
+      stateCounterLEDRudaSilesia2 = !stateCounterLEDRudaSilesia2;
+      digitalWrite(CounterLEDRudaSilesia2, stateCounterLEDRudaSilesia2);
+  }
   if (currentMillis - worktimeCounterLEDZabrze >= blinkCounterLEDZabrze) {
       worktimeCounterLEDZabrze = currentMillis;
       stateCounterLEDZabrze = !stateCounterLEDZabrze;
