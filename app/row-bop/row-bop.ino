@@ -151,6 +151,7 @@ void loop()
     digitalWrite(coalMine8, LOW);
     digitalWrite(coalMine9, LOW);
     digitalWrite(coalMine10, LOW);
+    digitalWrite(coalMine11, LOW);
     digitalWrite(CounterLEDJastrzebie1, LOW);
     digitalWrite(CounterLEDJastrzebie2, LOW);
     digitalWrite(CounterLEDJastrzebie3, LOW);
